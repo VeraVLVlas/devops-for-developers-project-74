@@ -15,9 +15,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      - name: Prepare env
+        run: cp app/.env.example app/.env
+
       - name: Run tests with Docker compose
         run: docker compose -f docker-compose.yml up --abort-on-container-exit
-  
+
   build:
     needs: test
     runs-on: ubuntu-latest

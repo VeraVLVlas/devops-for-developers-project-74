@@ -16,8 +16,9 @@ services:
       context: .
       dockerfile: Dockerfile.production
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
-      - .env
+      - ./app/.env
     command: "make test"
     image: "veravlvlas/devops-for-developers-project-74:latest"
