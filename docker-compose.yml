@@ -18,7 +18,5 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    env_file:
-      - ./app/.env
     command: "make test"
     image: "veravlvlas/devops-for-developers-project-74:latest"
