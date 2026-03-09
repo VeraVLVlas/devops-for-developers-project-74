@@ -1,7 +1,23 @@
 services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   app:
     build:
       context: .
       dockerfile: Dockerfile.production
+    depends_on:
+      - db
+    env_file:
+      - .env
     command: "make test"
     image: "veravlvlas/devops-for-developers-project-74:latest"

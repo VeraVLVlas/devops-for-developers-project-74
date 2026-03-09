@@ -8,3 +8,13 @@ services:
     volumes:
       - "./app:/app"
     command: "make dev"
+
+  caddy:
+    depends_on:
+      - app
+    image: caddy:2.11.1
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./services/caddy/Caddyfile:/etc/caddy/Caddyfile
